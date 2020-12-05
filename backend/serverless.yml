@@ -1,0 +1,52 @@
+service:
+  name: feywild-days-jtg72006
+frameworkVersion: '2'
+
+plugins:
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+  - serverless-aws-documentation
+  - serverless-offline
+  - serverless-dynamodb-local
+provider:
+  apiGateway:
+    shouldStartNameWithService: true
+
+  tracing:
+    lambda: true
+    apiGateway: true
+    
+  name: aws
+  runtime: nodejs12.x
+
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region,'us-west-2'}
+
+  environment:
+    EXAMPLE_VARIABLE: sans-server-todo-jtg72006-${self:provider.stage}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 'xray:PutTraceSegments'
+        - 'xray:PutTelemetryRecords'
+      Resource:
+        - "*"
+    - Effect: Allow
+      Action:
+        - codedeploy:*
+      Resource:
+        - '*'
+
+functions:
+
+  Auth:
+    handler: src/01Lambda/auth/auth0Authorizer.handler
+
+  OnlineCheck:
+    handler: src/01Lambda/onlineCheck.handler
+    events:
+      - http:
+          method: get
+          cors: true
+          path: test
