@@ -6,6 +6,8 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { getUserId } from '../utils'
 import { createLogger } from '../../utils/logger'
 
+// Business Logic Layer
+import { createHarptos } from '../../02BusinessLogic/harptosLogic'
 
 const logger = createLogger("** Http Layer **")
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -14,7 +16,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   /* Implment Authorization here when ready */
   const userId = getUserId(event)
   const body = JSON.parse(event.body)
-  const newItem = await createHarptos(body.day, userId)
+  const newItem = await createHarptos(body.day, body.year, userId)
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   
