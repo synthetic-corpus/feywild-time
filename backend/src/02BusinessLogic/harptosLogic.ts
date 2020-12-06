@@ -22,3 +22,10 @@ export function createHarptos(
         }
         return harptosDB.createHarptos(newCalendar)
     }
+
+export function retrieveHarptos(
+    harptosID: string,
+    userID: string
+): HarptosCalendar {
+    return harptosDB.retrieveHarptos(harptosID, userID)
+}
