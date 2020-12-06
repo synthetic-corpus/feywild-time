@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
     "middy": "^0.27.1",
     "serverless": "^2.12.0",
     "serverless-dynamodb-local": "^0.2.39",

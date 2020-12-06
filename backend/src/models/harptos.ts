@@ -9,8 +9,9 @@ export interface HarptosCalendar {
 
 export interface HarptosDay {
     month: string,
-    day: number,
-    notes: string
+    dayNumber: number,
+    season: string,
+    notes?: string
 }
 
 export interface HartposUpdate {
