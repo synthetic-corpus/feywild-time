@@ -50,3 +50,11 @@ functions:
           method: get
           cors: true
           path: test
+  
+  CreateHarptos:
+    handler: src/01Lambda/httpHarptos/createHarptos.handler
+    events:
+      - http:
+          method: post
+          cors: true
+          path: harptos
