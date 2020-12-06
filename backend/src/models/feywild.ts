@@ -1,5 +1,6 @@
 export interface FeywildCalendar {
     calenderID: string,
+    calendarName: string,
     userID: string,
     dilation: Dilation,
     currentSegment: number,
