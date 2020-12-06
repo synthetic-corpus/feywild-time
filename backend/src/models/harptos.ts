@@ -14,7 +14,7 @@ export interface HarptosDay {
     notes?: string
 }
 
-export interface HartposUpdate {
+export interface HarptosUpdate {
     currentDay: number,
     year: number,
     days?: HarptosDay[]

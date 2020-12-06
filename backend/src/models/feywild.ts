@@ -13,14 +13,21 @@ export interface FeywildSegment {
     notes: string
 }
 
-export interface FewildUpdate {
+export interface FeywildUpdate {
     dilation?: Dilation,
     currentSegment: number,
     segments?: FeywildSegment[]
 }
 
 export interface Dilation {
-    sides: number,
-    rolls: number,
-    add: number
+    sides: number, // Sides on Dice
+    rolls: number, // Number of rolls
+    add: number // add to or subtract from total rolls e.g. 
 }
+/* For 24 hours in a Feywild area, a random amount of days will advance
+in the Harptos Calendar. In games, randomization is done by dice.
+
+In table tob, "2D6+1" means "Roll two six side dice. Add their total and then add one".
+In psuedo code that means Rand(1-6) + Rand(1-6) + 1 
+
+*/

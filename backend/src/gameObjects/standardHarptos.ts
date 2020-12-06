@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import { HarptosDay } from '../models/harptos'
-export const Harptos: HarptosDay[] = []
+export const StandardHarptos: HarptosDay[] = []
 
 const dayNumbers = _.range(1,31)
 const monthNames = [
@@ -24,6 +24,6 @@ monthNames.forEach(Name => {
             dayNumber: dayNumber,
             season: "unset" /* Will be set by another function */
         }
-        Harptos.push(day)
+        StandardHarptos.push(day)
     })
 })
