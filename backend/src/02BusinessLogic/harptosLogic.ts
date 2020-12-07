@@ -29,3 +29,8 @@ export function retrieveHarptos(
 ): HarptosCalendar {
     return harptosDB.retrieveHarptos(harptosID, userID)
 }
+
+export function updateHartpos(
+    harptosUpdate: HarptosUpdate,
+    userID: string
+)
