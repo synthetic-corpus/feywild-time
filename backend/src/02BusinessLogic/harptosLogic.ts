@@ -37,3 +37,10 @@ export function updateHarptos(
 ): HarptosCalendar {
     return harptosDB.updateHarptos(harptosUpdate, harptosID, userID)
 }
+
+export function deleteHarptos(
+    harptosID: string,
+    userID: string
+): Object {
+    return harptosDB.deleteHarptos(harptosID, userID)
+}

@@ -14,13 +14,13 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   
   /* Implment Authorization here when ready */
-  const userId = getUserId(event)
+  const userID = getUserId(event)
   const body = JSON.parse(event.body)
-  const newItem = await createHarptos(body.day, body.year, userId)
+  const newItem = await createHarptos(body.day, body.year, userID)
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   
-  if (!newItem.calenderID) {
+  if (!newItem.harptosID) {
     return {
       statusCode: 400,
       headers: {

@@ -23,6 +23,10 @@ export class HarptosDB {
         return updatedThing
     }
 
+    deleteHarptos(harptosID: string, userID: string): Object {
+        return {"message": `Simulating deleting ${harptosID} from user ${userID}`}
+    }
+
     generateMockHarptos(harptosID: string, userID: string, currentDay: number, year: number): HarptosCalendar {
         /* This function for testing only */
         const newCalendar: HarptosCalendar = {
