@@ -20,7 +20,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   
-  if (!updatedItem.calenderID) {
+  if (!updatedItem.harptosID) {
     return {
       statusCode: 400,
       headers: {

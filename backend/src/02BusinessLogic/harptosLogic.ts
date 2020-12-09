@@ -12,9 +12,9 @@ export function createHarptos(
     currentDay:number,
     year: number, 
     userID:string): HarptosCalendar {
-        const calenderID = uuid.v4()
+        const harptosID = uuid.v4()
         const newCalendar: HarptosCalendar = {
-            calenderID,
+            harptosID,
             userID,
             currentDay,
             year,
@@ -30,7 +30,10 @@ export function retrieveHarptos(
     return harptosDB.retrieveHarptos(harptosID, userID)
 }
 
-export function updateHartpos(
+export function updateHarptos(
     harptosUpdate: HarptosUpdate,
+    harptosID: string,
     userID: string
-)
+): HarptosCalendar {
+    return harptosDB.updateHarptos(harptosUpdate, harptosID, userID)
+}

@@ -1,6 +1,6 @@
 
 export interface HarptosCalendar {
-    calenderID: string,
+    harptosID: string,
     userID: string,
     currentDay: number,
     year: number,
