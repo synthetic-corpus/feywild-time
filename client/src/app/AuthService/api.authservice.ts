@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import auth0 from 'auth0-js';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthService {
 
   userProfile: any;
@@ -14,7 +16,7 @@ export class AuthService {
     clientID: AUTH_CONFIG.clientId,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
-    audience: AUTH_CONFIG.apiUri,
+    audience: AUTH_CONFIG.audience,
     redirectUri: AUTH_CONFIG.appUri,
     scope: this.requestedScopes
   });
@@ -28,10 +30,13 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        console.log('Access token: ', authResult.accessToken)
+        console.log('id token: ', authResult.idToken)
         window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/home']);
       } else if (err) {
+        console.log("Flagrant Login Error")
         this.router.navigate(['/home']);
         console.log(err);
         alert('Error: ${err.error}. Check the console for further details.');
