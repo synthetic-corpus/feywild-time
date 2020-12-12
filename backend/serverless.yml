@@ -58,7 +58,7 @@ functions:
           method: post
           cors: true
           path: harptos
-          authorizer: auth
+          authorizer: Auth
   RetrieveHarptos:
     handler: src/01Lambda/httpHarptos/retrieveHarptos.handler
     events:
@@ -66,7 +66,7 @@ functions:
           method: get
           cors: true
           path: harptos/{harptosID}
-          authorizer: auth
+          authorizer: Auth
   UpdateHarptos:
     handler: src/01Lambda/httpHarptos/updateHarptos.handler
     events:
@@ -74,7 +74,7 @@ functions:
           method: patch
           cors: true
           path: harptos/{harptosID}
-          authorizer: auth
+          authorizer: Auth
   DeleteHarptos:
     handler: src/01Lambda/httpHarptos/deleteHarptos.handler
     events:
@@ -82,4 +82,4 @@ functions:
           method: delete
           cors: true
           path: harptos/{harptosID}
-          authorizer: auth
+          authorizer: Auth
