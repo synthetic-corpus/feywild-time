@@ -12,6 +12,12 @@ export function createHarptos(
     currentDay:number,
     year: number, 
     userID:string): HarptosCalendar {
+        if(!currentDay){
+            currentDay = 1
+        }
+        if(!year){
+            year = 1500
+        }
         const harptosID = uuid.v4()
         const newCalendar: HarptosCalendar = {
             harptosID,
