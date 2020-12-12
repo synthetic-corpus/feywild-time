@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { faUser, faPowerOff } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '../../AuthService/api.authservice';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -21,10 +21,10 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {}
 
   loginWithRedirect() {
-    this.auth.loginWithRedirect();
+    this.auth.login();
   }
 
   logout() {
-    this.auth.logout({ returnTo: this.doc.location.origin });
+    this.auth.logout();
   }
 }

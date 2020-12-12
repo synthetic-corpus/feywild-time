@@ -24,7 +24,7 @@
           <li class="nav-item">
             <a routerLink="/" class="nav-link">Home</a>
           </li>
-          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
+          <li class="nav-item" *ngIf="auth.isAuthenticated">
             <a routerLink="external-api" class="nav-link">External API</a>
           </li>
         </ul>
@@ -33,7 +33,7 @@
           <!-- Login button: show if NOT authenticated -->
           <li
             class="nav-item"
-            *ngIf="(auth.isAuthenticated$ | async) === false"
+            *ngIf="auth.isAuthenticated"
           >
             <button
               id="qsLoginBtn"
@@ -48,7 +48,7 @@
           <!-- Fullsize dropdown: show if authenticated -->
           <li
             class="nav-item dropdown"
-            *ngIf="auth.user$ | async as user"
+            *ngIf="auth.userProfile | async as user"
             ngbDropdown
           >
             <a
@@ -88,7 +88,7 @@
         <!-- Responsive login button: show if NOT authenticated -->
         <ul
           class="navbar-nav d-md-none"
-          *ngIf="(auth.isAuthenticated$ | async) === false"
+          *ngIf="auth.isAuthenticated"
         >
           <button
             class="btn btn-primary btn-block"
@@ -103,7 +103,7 @@
         <!-- Responsive profile dropdown: show if authenticated -->
         <ul
           class="navbar-nav d-md-none justify-content-between"
-          *ngIf="auth.user$ | async as user"
+          *ngIf="auth.userProfile | async as user"
           style="min-height: 170px;"
         >
           <li class="nav-item">
