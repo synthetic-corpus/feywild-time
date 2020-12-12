@@ -57,7 +57,7 @@ functions:
       - http:
           method: post
           cors: true
-          path: harptos
+          path: harptos/
           authorizer: Auth
   RetrieveHarptos:
     handler: src/01Lambda/httpHarptos/retrieveHarptos.handler
