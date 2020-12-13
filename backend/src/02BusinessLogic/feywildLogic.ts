@@ -16,3 +16,15 @@ export function createFeywild(feywildSetup: FeywildSetup, userID: string): Feywi
     }
     return feywildDB.createFeywild(feyZone)
 }
+
+export function retrieveFeywild(feywildID: string, userID: string){
+    return feywildDB.retrieveFeywild(feywildID, userID)
+}
+
+export function updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string){
+    return feywildDB.updateFeywild(feywildUpdate, feywildID, userID)
+}
+
+export function deleteFeyWild(feywildID, userID){
+    return feywildDB.deleteFeywild(feywildID, userID)
+}
