@@ -54,13 +54,13 @@ const options = [
             },
             {
                 astronomics: "moon rise",
-                weather: "Warm Summer",
+                weather: "Cool Night",
                 notes: ''
             },
             {
                 astronomics: "twilight",
-                weather: "Warm Summer",
-                notes: ''
+                weather: "Coolnight",
+                notes: 'Musroom People come out and say hello.'
             },
         ]
     },
