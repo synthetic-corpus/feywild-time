@@ -50,7 +50,7 @@ functions:
           method: get
           cors: true
           path: test
-  
+  # Harptos CRUD
   CreateHarptos:
     handler: src/01Lambda/httpHarptos/createHarptos.handler
     events:
@@ -82,4 +82,37 @@ functions:
           method: delete
           cors: true
           path: harptos/{harptosID}
+          authorizer: Auth
+  # Feywild CRUD
+  CreateFeywild:
+    handler: src/01Lambda/httpFeywild/createFeywild.handler
+    events:
+      - http:
+          method: post
+          cors: true
+          path: feywild/
+          authorizer: Auth
+  RetrieveFeywild:
+    handler: src/01Lambda/httpFeywild/getFeywild.handler
+    events:
+      - http:
+          method: get
+          cors: true
+          path: feywild/{feywildID}
+          authorizer: Auth
+  UpdateFeywild:
+    handler: src/01Lambda/httpFeywild/updateFeywild.handler
+    events:
+      - http:
+          method: patch
+          cors: true
+          path: feywild/{feywildID}
+          authorizer: Auth
+  DeleteFeywild:
+    handler: src/01Lambda/httpFeywild/deleteFeywild.handler
+    events:
+      - http:
+          method: delete
+          cors: true
+          path: feywild/{feywildID}
           authorizer: Auth
