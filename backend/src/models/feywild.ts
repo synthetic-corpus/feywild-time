@@ -14,6 +14,7 @@ export interface FeywildSegment {
 }
 
 export interface FeywildUpdate {
+    feywildName: string,
     dilation?: Dilation,
     currentSegment: number,
     segments?: FeywildSegment[]

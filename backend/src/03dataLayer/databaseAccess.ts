@@ -1,5 +1,7 @@
 import { HarptosCalendar, HarptosUpdate } from "../models/harptos"
+import { FeywildCalendar, FeywildUpdate } from "../models/feywild"
 import { StandardHarptos } from "../gameObjects/standardHarptos"
+import { generateMockFeywild } from "../gameObjects/feyRandoms"
 
 export class HarptosDB {
     constructor(
@@ -37,5 +39,32 @@ export class HarptosDB {
             days: StandardHarptos
         }
         return newCalendar
+    }
+}
+
+export class FeywildDB {
+    constructor(
+
+    ) {}
+
+    createFeywild(feywildCalendar: FeywildCalendar){
+        return feywildCalendar
+    }
+
+    retrieveFeywild(feywildID: string, userID: string){
+        return generateMockFeywild(feywildID, userID)
+    }
+
+    updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string){
+        const updatedThing = {
+            feywildID,
+            userID,
+            ...feywildUpdate
+        }
+        return updatedThing
+    }
+
+    deleteFeywild(feywildID: string, userID: string){
+        return {"message": `Simulating deleting ${feywildID} from user ${userID}`}
     }
 }
