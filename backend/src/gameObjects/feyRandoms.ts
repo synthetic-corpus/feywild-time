@@ -59,8 +59,8 @@ const options = [
             },
             {
                 astronomics: "twilight",
-                weather: "Coolnight",
-                notes: 'Musroom People come out and say hello.'
+                weather: "Cool night",
+                notes: 'Mushroom People come out and say hello.'
             },
         ]
     },
@@ -89,7 +89,7 @@ const options = [
             {
                 astronomics: "Dusk",
                 weather: "Pleasant Fall",
-                notes: "Moon Flower Dryads come out and MC"
+                notes: "Autumn Flower Dryads come out and MC"
             },
             {
                 astronomics: "Night",
