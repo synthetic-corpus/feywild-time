@@ -25,6 +25,6 @@ export function updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, u
     return feywildDB.updateFeywild(feywildUpdate, feywildID, userID)
 }
 
-export function deleteFeyWild(feywildID, userID){
+export function deleteFeywild(feywildID, userID){
     return feywildDB.deleteFeywild(feywildID, userID)
 }

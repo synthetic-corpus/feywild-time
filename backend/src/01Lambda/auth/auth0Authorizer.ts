@@ -91,12 +91,12 @@ function getToken(authHeader: string): string {
 
 async function matchToKey(kid: string) {
   // takes the header from the JWT token and matches to the right Key.
-  logger.info(`Matching to ${kid}`)
+  //logger.info(`Matching to ${kid}`)
   try{
     const actualKeys = await Axios.get('https://dev-jtg.us.auth0.com/.well-known/jwks.json')
     const signerKey = actualKeys.data.keys.filter(key => {key[kid] === kid})[0] || actualKeys.data.keys[0]
-    logger.info(actualKeys.data.keys)
-    logger.info(`Singer Key found was ${signerKey}`)
+    //logger.info(actualKeys.data.keys)
+    //logger.info(`Singer Key found was ${signerKey}`)
     const x5cKey: string = signerKey.x5c[0]
     if(!x5cKey){
       logger.info(`Could Not Match Keys!!`)

@@ -11,14 +11,14 @@ import { retrieveFeywild } from '../../02BusinessLogic/feywildLogic'
 
 const logger = createLogger("** Http Layer **")
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-
+  logger.info(`HTTP Layer`)
+  logger.info(`Processing event ${JSON.stringify(event.pathParameters)}`)
   
   /* Implment Authorization here when ready */
   const userID = getUserId(event)
   const feywildID = JSON.parse(event.pathParameters.feywildID)
-  const retrievedItem = await retrieveFeywild(feywildID, userID)
-  logger.info(`HTTP Layer`)
-  logger.info(`Processing event ${event}`)
+  const retrievedItem = retrieveFeywild(feywildID, userID)
+  
   
   if (!retrievedItem.feywildID) {
     return {

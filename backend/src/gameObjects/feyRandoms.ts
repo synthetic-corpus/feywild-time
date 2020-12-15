@@ -5,7 +5,8 @@ export function generateMockFeywild(
     userID: string
 ): FeywildCalendar {
     /* Used for testing. Returns a Random Default Calendar.*/
-    const whichEver = Math.random() * (3 - 0) + 0
+    const whichEver = Math.floor(Math.random() * Math.floor(3))
+    console.log(`Whichever returns ${whichEver}`)
     const feyZone = options[whichEver]
     return {
         feywildID,
