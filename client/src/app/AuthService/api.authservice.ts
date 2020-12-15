@@ -62,6 +62,8 @@ export class AuthService {
 
   public logout(): void {
     // Remove tokens and expiry time from localStorage
+    console.log("Removing local Tokens?")
+    
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
@@ -74,7 +76,9 @@ export class AuthService {
     // Check whether the current time is past the
     // Access Token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    const value = new Date().getTime() < expiresAt;
+    //console.log(`Is Authenticated returns ${value}`)
+    return value
   }
 
   public userHasScopes(scopes: Array<string>): boolean {
