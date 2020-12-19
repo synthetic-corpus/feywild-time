@@ -14,6 +14,7 @@ export class HarptosDB {
     constructor(
         private documentClient = new AWS.DynamoDB.DocumentClient(),
         private table = process.env.HARPTOS_TABLE,
+        private index = process.env.HARPTOS_INDEX
     ){}
 
     async createHarptos(harptosCalendar: HarptosCalendar){
@@ -29,8 +30,21 @@ export class HarptosDB {
         return harptosCalendar
     }
 
-    retrieveHarptos(harptosID: string, userID: string): HarptosCalendar{
-        return this.generateMockHarptos(harptosID, userID, 1, 1600)
+    async retrieveHarptos(harptosID: string, userID: string): Promise<HarptosCalendar>{
+        const inputs = {
+            TableName: this.table,
+            IndexName: this.index,
+            KeyConditionExpression: 'harptosID = :harptosID and userID = :userID',
+            ExpressionAttributeValues: {
+                ':harptosID': harptosID,
+                ':userID': userID
+            }
+        }
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Retrieving from table ${this.table}`)
+        logger.info(inputs)
+        const result = await this.documentClient.query(inputs).promise()
+        return result.Items[0] as HarptosCalendar
     }
 
     updateHarptos(harptosUpdate: HarptosUpdate, harptosID: string, userID: string): HarptosCalendar {

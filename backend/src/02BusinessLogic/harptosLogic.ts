@@ -31,11 +31,11 @@ export async function createHarptos(
         return await harptosDB.createHarptos(newCalendar)
     }
 
-export function retrieveHarptos(
+export async function retrieveHarptos(
     harptosID: string,
     userID: string
-): HarptosCalendar {
-    return harptosDB.retrieveHarptos(harptosID, userID)
+): Promise<HarptosCalendar> {
+    return await harptosDB.retrieveHarptos(harptosID, userID)
 }
 
 export function updateHarptos(

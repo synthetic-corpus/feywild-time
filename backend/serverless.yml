@@ -176,24 +176,12 @@ resources:
           AttributeDefinitions:
             - AttributeName: harptosID
               AttributeType: S
-            - AttributeName: createdAt
-              AttributeType: S
           KeySchema:
             - AttributeName: harptosID
               KeyType: HASH
-            - AttributeName: createdAt
-              KeyType: RANGE
           BillingMode: PAY_PER_REQUEST
           TableName: ${self:provider.environment.HARPTOS_TABLE}
-          LocalSecondaryIndexes:
-            - IndexName: ${self:provider.environment.HARPTOS_INDEX}
-              KeySchema:
-                - AttributeName: harptosID
-                  KeyType: HASH
-                - AttributeName: createdAt
-                  KeyType: RANGE
-              Projection:
-                ProjectionType: ALL
+  
     # Feywild Database
     FeywildTable:
       Type: AWS::DynamoDB::Table
@@ -201,22 +189,9 @@ resources:
           AttributeDefinitions:
             - AttributeName: feywildID
               AttributeType: S
-            - AttributeName: createdAt
-              AttributeType: S
           KeySchema:
             - AttributeName: feywildID
               KeyType: HASH
-            - AttributeName: createdAt
-              KeyType: RANGE
           BillingMode: PAY_PER_REQUEST
           TableName: ${self:provider.environment.FEYWILD_TABLE}
-          LocalSecondaryIndexes:
-            - IndexName: ${self:provider.environment.FEYWILD_INDEX}
-              KeySchema:
-                - AttributeName: feywildID
-                  KeyType: HASH
-                - AttributeName: createdAt
-                  KeyType: RANGE
-              Projection:
-                ProjectionType: ALL
     
