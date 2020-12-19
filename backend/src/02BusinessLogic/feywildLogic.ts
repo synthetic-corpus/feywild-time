@@ -2,21 +2,25 @@ import * as uuid from 'uuid'
 
 import { FeywildCalendar, FeywildUpdate } from '../models/Feywild'
 import { FeywildSetup } from '../requests/createFeywild'
+import { createLogger } from '../utils/logger'
 
+const logger = createLogger('Logic Layer')
 /* Database Layer */
 import { FeywildDB } from '../03dataLayer/databaseAccess'
 const feywildDB = new FeywildDB
 
-export function createFeywild(feywildSetup: FeywildSetup, userID: string): FeywildCalendar{
+export async function createFeywild(feywildSetup: FeywildSetup, userID: string): Promise<FeywildCalendar>{
     const feywildID = uuid.v4()
     const createdAt = (new Date()).toString();
+    logger.info("*** Logic Layer ***")
+    logger.info(`Creating a FeyWild Calander at ${createdAt}`)
     const feyZone: FeywildCalendar = {
         userID,
         feywildID,
         createdAt,
         ...feywildSetup
     }
-    return feywildDB.createFeywild(feyZone)
+    return await feywildDB.createFeywild(feyZone)
 }
 
 export function retrieveFeywild(feywildID: string, userID: string){

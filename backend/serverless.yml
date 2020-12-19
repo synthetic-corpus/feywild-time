@@ -24,6 +24,7 @@ provider:
 
   environment:
     EXAMPLE_VARIABLE: sans-server-todo-jtg72006-${self:provider.stage}
+    AWS_XRAY_CONTEXT_MISSING: LOG_ERROR
     HARPTOS_TABLE: HarptosDB-${self:provider.stage}
     FEYWILD_TABLE: FeywildDB-${self:provider.stage}
     HARPTOS_INDEX: HarptosIndex

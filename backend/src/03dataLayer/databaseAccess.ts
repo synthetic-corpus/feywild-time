@@ -1,7 +1,14 @@
+import * as AWS  from 'aws-sdk'
+import * as AWSXRay from 'aws-xray-sdk'
+
 import { HarptosCalendar, HarptosUpdate } from "../models/harptos"
 import { FeywildCalendar, FeywildUpdate } from "../models/feywild"
 import { StandardHarptos } from "../gameObjects/standardHarptos"
 import { generateMockFeywild } from "../gameObjects/feyRandoms"
+import { createLogger } from "../utils/logger"
+
+const logger = createLogger('Database Layer')
+const xray = AWSXRay.captureAWS(AWS)
 
 export class HarptosDB {
     constructor(
@@ -46,10 +53,20 @@ export class HarptosDB {
 
 export class FeywildDB {
     constructor(
-
+        private documentClient = new xray.DynamoDB.DocumentClient(),
+        private table = process.env.FEYWILD_TABLE,
+        /*private index = process.env.FEYWILD_INDEX*/
     ) {}
 
-    createFeywild(feywildCalendar: FeywildCalendar){
+    async createFeywild(feywildCalendar: FeywildCalendar){
+        const inputs = {
+            TableName: this.table,
+            Item: feywildCalendar
+        }
+        logger.info("*** Database Access Layer ***")
+        logger.info(inputs)
+        await this.documentClient.put(inputs).promise()
+        logger.info("Item Created")
         return feywildCalendar
     }
 
