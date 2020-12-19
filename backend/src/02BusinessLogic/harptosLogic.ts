@@ -9,10 +9,10 @@ const harptosDB = new HarptosDB()
 const createdAt = (new Date()).toString();
 
 /* Create Harptos */
-export function createHarptos(
+export async function createHarptos(
     currentDay:number,
     year: number, 
-    userID:string): HarptosCalendar {
+    userID:string): Promise<HarptosCalendar> {
         if(!currentDay){
             currentDay = 1
         }
@@ -28,7 +28,7 @@ export function createHarptos(
             year,
             days: StandardHarptos
         }
-        return harptosDB.createHarptos(newCalendar)
+        return await harptosDB.createHarptos(newCalendar)
     }
 
 export function retrieveHarptos(

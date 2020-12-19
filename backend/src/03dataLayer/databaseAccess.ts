@@ -12,10 +12,20 @@ const logger = createLogger('Database Layer')
 
 export class HarptosDB {
     constructor(
-
+        private documentClient = new AWS.DynamoDB.DocumentClient(),
+        private table = process.env.HARPTOS_TABLE,
     ){}
 
-    createHarptos(harptosCalendar: HarptosCalendar){
+    async createHarptos(harptosCalendar: HarptosCalendar){
+        const inputs = {
+            TableName: this.table,
+            Item: harptosCalendar
+        }
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Writing to table ${this.table}`)
+        logger.info(inputs)
+        await this.documentClient.put(inputs).promise()
+        logger.info("Item Created")
         return harptosCalendar
     }
 
@@ -64,6 +74,7 @@ export class FeywildDB {
             Item: feywildCalendar
         }
         logger.info("*** Database Access Layer ***")
+        logger.info(`Writing to table ${this.table}`)
         logger.info(inputs)
         await this.documentClient.put(inputs).promise()
         logger.info("Item Created")
