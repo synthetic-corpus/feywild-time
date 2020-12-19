@@ -1,5 +1,5 @@
 import * as AWS  from 'aws-sdk'
-import * as AWSXRay from 'aws-xray-sdk'
+
 
 import { HarptosCalendar, HarptosUpdate } from "../models/harptos"
 import { FeywildCalendar, FeywildUpdate } from "../models/feywild"
@@ -8,7 +8,7 @@ import { generateMockFeywild } from "../gameObjects/feyRandoms"
 import { createLogger } from "../utils/logger"
 
 const logger = createLogger('Database Layer')
-const xray = AWSXRay.captureAWS(AWS)
+
 
 export class HarptosDB {
     constructor(
@@ -53,7 +53,7 @@ export class HarptosDB {
 
 export class FeywildDB {
     constructor(
-        private documentClient = new xray.DynamoDB.DocumentClient(),
+        private documentClient = new AWS.DynamoDB.DocumentClient(),
         private table = process.env.FEYWILD_TABLE,
         /*private index = process.env.FEYWILD_INDEX*/
     ) {}
