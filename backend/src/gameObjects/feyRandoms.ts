@@ -9,6 +9,7 @@ export function generateMockFeywild(
     console.log(`Whichever returns ${whichEver}`)
     const feyZone = options[whichEver]
     return {
+        createdAt: (new Date()).toString(),
         feywildID,
         userID,
         ...feyZone

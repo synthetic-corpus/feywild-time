@@ -1,4 +1,5 @@
 export interface FeywildCalendar {
+    createdAt: string,
     feywildID: string,
     feywildName: string,
     userID: string,

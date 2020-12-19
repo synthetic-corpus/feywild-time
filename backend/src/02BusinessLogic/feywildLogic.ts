@@ -9,9 +9,11 @@ const feywildDB = new FeywildDB
 
 export function createFeywild(feywildSetup: FeywildSetup, userID: string): FeywildCalendar{
     const feywildID = uuid.v4()
+    const createdAt = (new Date()).toString();
     const feyZone: FeywildCalendar = {
         userID,
         feywildID,
+        createdAt,
         ...feywildSetup
     }
     return feywildDB.createFeywild(feyZone)

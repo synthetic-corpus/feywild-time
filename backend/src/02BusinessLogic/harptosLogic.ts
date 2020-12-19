@@ -6,6 +6,7 @@ import { HarptosCalendar, HarptosUpdate } from '../models/Harptos'
 /* Database Layer */
 import { HarptosDB } from '../03dataLayer/databaseAccess'
 const harptosDB = new HarptosDB()
+const createdAt = (new Date()).toString();
 
 /* Create Harptos */
 export function createHarptos(
@@ -20,6 +21,7 @@ export function createHarptos(
         }
         const harptosID = uuid.v4()
         const newCalendar: HarptosCalendar = {
+            createdAt,
             harptosID,
             userID,
             currentDay,

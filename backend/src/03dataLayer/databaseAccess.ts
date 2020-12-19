@@ -20,6 +20,7 @@ export class HarptosDB {
         const updatedThing = {
             harptosID,
             userID,
+            createdAt: (new Date()).toString(),
             ...harptosUpdate
         }
         return updatedThing
@@ -32,6 +33,7 @@ export class HarptosDB {
     generateMockHarptos(harptosID: string, userID: string, currentDay: number, year: number): HarptosCalendar {
         /* This function for testing only */
         const newCalendar: HarptosCalendar = {
+            createdAt: (new Date()).toString(),
             harptosID,
             userID,
             currentDay,
@@ -57,6 +59,7 @@ export class FeywildDB {
 
     updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string){
         const updatedThing = {
+            createdAt: (new Date()).toString(),
             feywildID,
             userID,
             ...feywildUpdate
