@@ -13,9 +13,18 @@ const logger = createLogger('Database Layer')
 export class HarptosDB {
     constructor(
         private documentClient = new AWS.DynamoDB.DocumentClient(),
-        private table = process.env.HARPTOS_TABLE,
-        private index = process.env.HARPTOS_INDEX
-    ){}
+        private table = process.env.HARPTOS_TABLE
+    ){
+        if (process.env.IS_OFFLINE){
+            console.log("Connecting to Offline DB")
+            this.documentClient = new AWS.DynamoDB.DocumentClient({
+                region: 'localhost',
+                endpoint: 'http://localhost:8000'
+            })
+        }else{
+            this.documentClient = new AWS.DynamoDB.DocumentClient()
+        }
+    }
 
     async createHarptos(harptosCalendar: HarptosCalendar){
         const inputs = {
@@ -33,16 +42,16 @@ export class HarptosDB {
     async retrieveHarptos(harptosID: string, userID: string): Promise<HarptosCalendar>{
         const inputs = {
             TableName: this.table,
-            KeyConditionExpression: 'harptosID = :harptosID',
-            ExpressionAttributeValues: {
-                ':harptosID': harptosID
+            Key: {
+                harptosID,
+                userID
             }
         }
         logger.info("*** Database Access Layer ***")
         logger.info(`Retrieving from table ${this.table} for ${userID}`)
         logger.info(inputs)
-        const result = await this.documentClient.query(inputs).promise()
-        return result.Items[0] as HarptosCalendar
+        const result = await this.documentClient.get(inputs).promise()
+        return result.Item as HarptosCalendar
     }
 
     updateHarptos(harptosUpdate: HarptosUpdate, harptosID: string, userID: string): HarptosCalendar {
@@ -75,10 +84,20 @@ export class HarptosDB {
 
 export class FeywildDB {
     constructor(
-        private documentClient = new AWS.DynamoDB.DocumentClient(),
+        private documentClient,
         private table = process.env.FEYWILD_TABLE,
         /*private index = process.env.FEYWILD_INDEX*/
-    ) {}
+    ) {
+        if (process.env.IS_OFFLINE){
+            console.log("Connecting to Offline DB")
+            this.documentClient = new AWS.DynamoDB.DocumentClient({
+                region: 'localhost',
+                endpoint: 'http://localhost:8000'
+            })
+        }else{
+            this.documentClient = new AWS.DynamoDB.DocumentClient()
+        }
+    }
 
     async createFeywild(feywildCalendar: FeywildCalendar){
         const inputs = {
