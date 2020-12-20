@@ -33,15 +33,13 @@ export class HarptosDB {
     async retrieveHarptos(harptosID: string, userID: string): Promise<HarptosCalendar>{
         const inputs = {
             TableName: this.table,
-            IndexName: this.index,
-            KeyConditionExpression: 'harptosID = :harptosID and userID = :userID',
+            KeyConditionExpression: 'harptosID = :harptosID',
             ExpressionAttributeValues: {
-                ':harptosID': harptosID,
-                ':userID': userID
+                ':harptosID': harptosID
             }
         }
         logger.info("*** Database Access Layer ***")
-        logger.info(`Retrieving from table ${this.table}`)
+        logger.info(`Retrieving from table ${this.table} for ${userID}`)
         logger.info(inputs)
         const result = await this.documentClient.query(inputs).promise()
         return result.Items[0] as HarptosCalendar
