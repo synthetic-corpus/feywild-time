@@ -6,7 +6,7 @@ const dayNumbers = _.range(1,31)
 const monthNames = [
     'Hammer',
     'Alturiak',
-    'Ches',
+    'Ches'/*,
     'Tarsakh',
     'Mirtul',
     'Kythorn',
@@ -15,7 +15,7 @@ const monthNames = [
     'Eleint',
     'Marpenoth',
     'Uktar',
-    'Nightal'
+    'Nightal'*/
 ]
 monthNames.forEach(Name => {
     dayNumbers.forEach(dayNumber => {

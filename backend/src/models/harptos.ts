@@ -4,7 +4,7 @@ export interface HarptosCalendar {
     harptosID: string,
     userID: string,
     currentDay: number,
-    year: number,
+    harptosYear: number,
     days: HarptosDay[]
 
 }
@@ -12,13 +12,12 @@ export interface HarptosCalendar {
 export interface HarptosDay {
     month: string,
     dayNumber: number,
-    season: string,
-    notes?: string
+    season: string
 }
 
 /* Used by Logic Layer */
 export interface HarptosUpdate {
     currentDay: number,
-    year: number,
+    harptosYear: number,
     days: HarptosDay[]
 }

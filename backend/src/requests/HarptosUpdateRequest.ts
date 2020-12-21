@@ -2,6 +2,6 @@
 import { HarptosDay } from "../models/harptos"
 export interface HarptosUpdateRequest {
     currentDay: number
-    year: number
+    harptosYear: number
     days: HarptosDay[]
 }

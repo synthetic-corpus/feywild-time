@@ -51,28 +51,40 @@ export class HarptosDB {
         return result.Item as HarptosCalendar
     }
 
-    updateHarptos(harptosUpdate: HarptosUpdate, harptosID: string, userID: string): HarptosCalendar {
-        const updatedThing = {
-            harptosID,
-            userID,
-            createdAt: (new Date()).toString(),
-            ...harptosUpdate
+    async updateHarptos(harptosUpdate: HarptosUpdate, harptosID: string, userID: string): Promise<Object> {
+        const inputs = {
+            TableName: this.table,
+            Key: {
+                userID,
+                harptosID
+            },
+            UpdateExpression: `set currentDay = :c, harptosYear = :y, days = :d`, // Update 'instructions' similiar to writing a raw SQL request
+            // Provide the variables for the instructions above.
+            ExpressionAttributeValues: {
+                ':c': harptosUpdate.currentDay,
+                ':y': harptosUpdate.harptosYear,
+                ':d': harptosUpdate.days
+            }
         }
-        return updatedThing
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Updating ${this.table} for ${userID}`)
+        logger.info(inputs)
+        const updatedThing = await this.documentClient.update(inputs).promise()
+        return updatedThing as Object
     }
 
     deleteHarptos(harptosID: string, userID: string): Object {
         return {"message": `Simulating deleting ${harptosID} from user ${userID}`}
     }
 
-    generateMockHarptos(harptosID: string, userID: string, currentDay: number, year: number): HarptosCalendar {
+    generateMockHarptos(harptosID: string, userID: string, currentDay: number, harptosYear: number): HarptosCalendar {
         /* This function for testing only */
         const newCalendar: HarptosCalendar = {
             createdAt: (new Date()).toString(),
             harptosID,
             userID,
             currentDay,
-            year,
+            harptosYear,
             days: StandardHarptos
         }
         return newCalendar

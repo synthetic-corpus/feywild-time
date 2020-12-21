@@ -17,10 +17,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const harptosUpdate: HarptosUpdateRequest = JSON.parse(event.body)
   const harptosID: string = event.pathParameters.harptosID
   const updatedItem = await updateHarptos(harptosUpdate, harptosID, userID)
+  console.log(harptosUpdate)
   logger.info(`HTTP Layer`)
-  logger.info(`Processing event ${JSON.stringify(event)}`)
+  logger.info(`Processing event ${JSON.stringify(event.body)}`)
   
-  if (!updatedItem.harptosID) {
+  if (!updatedItem) {
     return {
       statusCode: 400,
       headers: {

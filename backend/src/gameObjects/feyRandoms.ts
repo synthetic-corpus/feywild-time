@@ -21,7 +21,7 @@ const options = [
         feywildName: "Always Summer",
         dilation: {sides: 4, rolls: 1, add: 0},
         currentSegment: 0,
-        segments: [
+        feySegments: [
             {
                 astronomics: "sunrise",
                 weather: "Warm Summer",
@@ -43,7 +43,7 @@ const options = [
         feywildName: "Fey Twilight",
         dilation: {sides: 4, rolls: 2, add: 0},
         currentSegment: 0,
-        segments: [
+        feySegments: [
             {
                 astronomics: "twilight",
                 weather: "Cool Evening",
@@ -70,7 +70,7 @@ const options = [
         feywildName: "Always Winter",
         dilation: {sides: 1, rolls: 1, add: 0},
         currentSegment: 0,
-        segments: [
+        feySegments: [
             {
                 astronomics: "Normal day-night cycle",
                 weather: "Cold Winter",
@@ -82,7 +82,7 @@ const options = [
         feywildName: "Always Party",
         dilation: {sides: 6, rolls: 1, add: 1},
         currentSegment: 0,
-        segments: [
+        feySegments: [
             {
                 astronomics: "Sun Down",
                 weather: "Pleasant Fall",

@@ -11,13 +11,13 @@ const createdAt = (new Date()).toString();
 /* Create Harptos */
 export async function createHarptos(
     currentDay:number,
-    year: number, 
+    harptosYear: number, 
     userID:string): Promise<HarptosCalendar> {
         if(!currentDay){
             currentDay = 1
         }
-        if(!year){
-            year = 1500
+        if(!harptosYear){
+            harptosYear = 1500
         }
         const harptosID = uuid.v4()
         const newCalendar: HarptosCalendar = {
@@ -25,7 +25,7 @@ export async function createHarptos(
             harptosID,
             userID,
             currentDay,
-            year,
+            harptosYear,
             days: StandardHarptos
         }
         return await harptosDB.createHarptos(newCalendar)
@@ -38,12 +38,12 @@ export async function retrieveHarptos(
     return await harptosDB.retrieveHarptos(harptosID, userID)
 }
 
-export function updateHarptos(
+export async function updateHarptos(
     harptosUpdate: HarptosUpdate,
     harptosID: string,
     userID: string
-): HarptosCalendar {
-    return harptosDB.updateHarptos(harptosUpdate, harptosID, userID)
+): Promise<Object>{
+    return await harptosDB.updateHarptos(harptosUpdate, harptosID, userID)
 }
 
 export function deleteHarptos(
