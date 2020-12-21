@@ -5,7 +5,7 @@ export interface FeywildCalendar {
     userID: string,
     dilation: Dilation,
     currentSegment: number,
-    segments: FeywildSegment[]
+    feySegments: FeywildSegment[]
 }
 
 export interface FeywildSegment {
@@ -15,10 +15,10 @@ export interface FeywildSegment {
 }
 
 export interface FeywildUpdate {
-    feywildName: string,
+    feywildName?: string,
     dilation?: Dilation,
-    currentSegment: number,
-    segments?: FeywildSegment[]
+    currentSegment?: number,
+    feySegments?: FeywildSegment[]
 }
 
 export interface Dilation {

@@ -15,12 +15,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   /* Implment Authorization here when ready */
   const userID = getUserId(event)
   const feywildUpdate: FeywildUpdateRequest = JSON.parse(event.body)
-  const feywildID: string = event.pathParameters.harptosID
+  const feywildID: string = event.pathParameters.feywildID
   const updatedItem = await updateFeywild(feywildUpdate, feywildID, userID)
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${event}`)
   
-  if (!updatedItem.feywildID) {
+  if (!updatedItem) {
     return {
       statusCode: 400,
       headers: {

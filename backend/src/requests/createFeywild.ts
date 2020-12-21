@@ -4,5 +4,5 @@ export interface FeywildSetup {
     feywildName: string,
     dilation: Dilation,
     currentSegment: number,
-    segments: FeywildSegment[]
+    feySegments: FeywildSegment[]
 }

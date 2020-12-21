@@ -121,14 +121,31 @@ export class FeywildDB {
         return result.Item as FeywildCalendar
     }
 
-    updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string){
-        const updatedThing = {
-            createdAt: (new Date()).toString(),
-            feywildID,
-            userID,
-            ...feywildUpdate
+    async updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string): Promise<Object>{
+        const inputs = {
+            TableName: this.table,
+            Key: {
+                userID,
+                feywildID
+            },
+            UpdateExpression: `set #feywildName = :n, dilation = :d, currentSegment = :s, #feySegments = :fs`, // Update 'instructions' similiar to writing a raw SQL request
+            // Provide the variables for the instructions above.
+            ExpressionAttributeValues: {
+                ':n': feywildUpdate.feywildName,
+                ':d': feywildUpdate.dilation,
+                ':s': feywildUpdate.currentSegment,
+                ':fs': feywildUpdate.feySegments
+            },
+            ExpressionAttributeNames: {
+                '#feySegments': 'feySegment',
+                '#feywildName': 'feywildName'
+            }
         }
-        return updatedThing
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Updating ${this.table} for ${userID}`)
+        logger.info(inputs)
+        const updatedThing = await this.documentClient.update(inputs).promise()
+        return updatedThing as Object
     }
 
     deleteFeywild(feywildID: string, userID: string){
