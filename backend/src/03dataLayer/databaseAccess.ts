@@ -4,7 +4,6 @@ import * as AWS  from 'aws-sdk'
 import { HarptosCalendar, HarptosUpdate } from "../models/harptos"
 import { FeywildCalendar, FeywildUpdate } from "../models/feywild"
 import { StandardHarptos } from "../gameObjects/standardHarptos"
-import { generateMockFeywild } from "../gameObjects/feyRandoms"
 import { createLogger } from "../utils/logger"
 
 const logger = createLogger('Database Layer')
@@ -83,8 +82,7 @@ export class HarptosDB {
 export class FeywildDB {
     constructor(
         private documentClient = new AWS.DynamoDB.DocumentClient(),
-        private table = process.env.FEYWILD_TABLE,
-        /*private index = process.env.FEYWILD_INDEX*/
+        private table = process.env.FEYWILD_TABLE
     ) {
         if (process.env.IS_OFFLINE){
             console.log("Connecting to Offline DB")
@@ -108,8 +106,19 @@ export class FeywildDB {
         return feywildCalendar
     }
 
-    retrieveFeywild(feywildID: string, userID: string){
-        return generateMockFeywild(feywildID, userID)
+    async retrieveFeywild(feywildID: string, userID: string){
+        const inputs = {
+            TableName: this.table,
+            Key: {
+                feywildID,
+                userID
+            }
+        }
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Retrieving from table ${this.table} for ${userID}`)
+        logger.info(inputs)
+        const result = await this.documentClient.get(inputs).promise()
+        return result.Item as FeywildCalendar
     }
 
     updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string){

@@ -17,7 +17,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   /* Implment Authorization here when ready */
   const userID = getUserId(event)
   const feywildID = JSON.parse(event.pathParameters.feywildID)
-  const retrievedItem = retrieveFeywild(feywildID, userID)
+  const retrievedItem = await retrieveFeywild(feywildID, userID)
   
   
   if (!retrievedItem.feywildID) {
