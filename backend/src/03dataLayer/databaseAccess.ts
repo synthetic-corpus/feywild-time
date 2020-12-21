@@ -21,8 +21,6 @@ export class HarptosDB {
                 region: 'localhost',
                 endpoint: 'http://localhost:8000'
             })
-        }else{
-            this.documentClient = new AWS.DynamoDB.DocumentClient()
         }
     }
 
@@ -84,7 +82,7 @@ export class HarptosDB {
 
 export class FeywildDB {
     constructor(
-        private documentClient,
+        private documentClient = new AWS.DynamoDB.DocumentClient(),
         private table = process.env.FEYWILD_TABLE,
         /*private index = process.env.FEYWILD_INDEX*/
     ) {
@@ -94,8 +92,6 @@ export class FeywildDB {
                 region: 'localhost',
                 endpoint: 'http://localhost:8000'
             })
-        }else{
-            this.documentClient = new AWS.DynamoDB.DocumentClient()
         }
     }
 

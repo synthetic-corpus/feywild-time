@@ -7,7 +7,7 @@ import { createLogger } from '../utils/logger'
 const logger = createLogger('Logic Layer')
 /* Database Layer */
 import { FeywildDB } from '../03dataLayer/databaseAccess'
-const feywildDB = new FeywildDB
+const feywildDB = new FeywildDB()
 
 export async function createFeywild(feywildSetup: FeywildSetup, userID: string): Promise<FeywildCalendar>{
     const feywildID = uuid.v4()
