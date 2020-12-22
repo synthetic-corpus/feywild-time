@@ -82,7 +82,7 @@ export class HarptosDB {
             },
         }
         logger.info("*** Database Access Layer ***")
-        logger.info(`Updating ${this.table} for ${userID}`)
+        logger.info(`Delete on ${this.table} for ${harptosID}`)
         logger.info(inputs)
         const deletion = await this.documentClient.delete(inputs).promise()
         return {"message": `Simulating deleting ${harptosID} from user ${userID}`,deletion}
@@ -160,7 +160,7 @@ export class FeywildDB {
                 ':fs': feywildUpdate.feySegments
             },
             ExpressionAttributeNames: {
-                '#feySegments': 'feySegment',
+                '#feySegments': 'feySegments',
                 '#feywildName': 'feywildName'
             }
         }
@@ -180,7 +180,7 @@ export class FeywildDB {
             },
         }
         logger.info("*** Database Access Layer ***")
-        logger.info(`Updating ${this.table} for ${userID}`)
+        logger.info(`Delete on ${this.table} for ${feywildID}`)
         logger.info(inputs)
         const deletion = await this.documentClient.delete(inputs).promise()
         return {"message": `Simulating deleting ${feywildID} from user ${userID}`,deletion}
