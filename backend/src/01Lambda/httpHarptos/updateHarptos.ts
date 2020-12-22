@@ -15,7 +15,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   /* Implment Authorization here when ready */
   const userID = getUserId(event)
   const harptosUpdate: HarptosUpdateRequest = JSON.parse(event.body)
-  const harptosID: string = event.pathParameters.harptosID
+  const harptosID: string = JSON.parse(event.pathParameters.harptosID)
   const updatedItem = await updateHarptos(harptosUpdate, harptosID, userID)
   console.log(harptosUpdate)
   logger.info(`HTTP Layer`)
