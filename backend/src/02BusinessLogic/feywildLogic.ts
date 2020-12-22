@@ -9,7 +9,10 @@ const logger = createLogger('Logic Layer')
 import { FeywildDB } from '../03dataLayer/databaseAccess'
 const feywildDB = new FeywildDB()
 
-export async function createFeywild(feywildSetup: FeywildSetup, userID: string): Promise<FeywildCalendar>{
+export async function createFeywild(
+    feywildSetup: FeywildSetup, 
+    userID: string
+    ): Promise<FeywildCalendar>{
     const feywildID = uuid.v4()
     const createdAt = (new Date()).toString();
     logger.info("*** Logic Layer ***")
@@ -23,14 +26,23 @@ export async function createFeywild(feywildSetup: FeywildSetup, userID: string):
     return await feywildDB.createFeywild(feyZone)
 }
 
-export function retrieveFeywild(feywildID: string, userID: string){
-    return feywildDB.retrieveFeywild(feywildID, userID)
+export async function retrieveFeywild(
+    feywildID: string, 
+    userID: string
+    ): Promise<FeywildCalendar>{
+    return await feywildDB.retrieveFeywild(feywildID, userID)
 }
 
-export function updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string){
-    return feywildDB.updateFeywild(feywildUpdate, feywildID, userID)
+export async function updateFeywild(
+    feywildUpdate: FeywildUpdate, 
+    feywildID: string, 
+    userID: string): Promise<Object>{
+    return await feywildDB.updateFeywild(feywildUpdate, feywildID, userID)
 }
 
-export function deleteFeywild(feywildID, userID){
-    return feywildDB.deleteFeywild(feywildID, userID)
+export async function deleteFeywild(
+    feywildID: string, 
+    userID: string
+    ): Promise<Object>{
+    return await feywildDB.deleteFeywild(feywildID, userID)
 }

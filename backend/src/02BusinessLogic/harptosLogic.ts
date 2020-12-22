@@ -46,9 +46,9 @@ export async function updateHarptos(
     return await harptosDB.updateHarptos(harptosUpdate, harptosID, userID)
 }
 
-export function deleteHarptos(
+export async function deleteHarptos(
     harptosID: string,
     userID: string
-): Object {
-    return harptosDB.deleteHarptos(harptosID, userID)
+): Promise<Object> {
+    return await harptosDB.deleteHarptos(harptosID, userID)
 }

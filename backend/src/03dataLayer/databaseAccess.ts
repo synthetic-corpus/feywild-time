@@ -73,8 +73,19 @@ export class HarptosDB {
         return updatedThing as Object
     }
 
-    deleteHarptos(harptosID: string, userID: string): Object {
-        return {"message": `Simulating deleting ${harptosID} from user ${userID}`}
+    async deleteHarptos(harptosID: string, userID: string): Promise<Object> {
+        const inputs = {
+            TableName: this.table,
+            Key: {
+                userID,
+                harptosID
+            },
+        }
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Updating ${this.table} for ${userID}`)
+        logger.info(inputs)
+        const deletion = await this.documentClient.delete(inputs).promise()
+        return {"message": `Simulating deleting ${harptosID} from user ${userID}`,deletion}
     }
 
     generateMockHarptos(harptosID: string, userID: string, currentDay: number, harptosYear: number): HarptosCalendar {
@@ -160,7 +171,18 @@ export class FeywildDB {
         return updatedThing as Object
     }
 
-    deleteFeywild(feywildID: string, userID: string){
-        return {"message": `Simulating deleting ${feywildID} from user ${userID}`}
+    async deleteFeywild(feywildID: string, userID: string): Promise<Object>{
+        const inputs = {
+            TableName: this.table,
+            Key: {
+                userID,
+                feywildID
+            },
+        }
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Updating ${this.table} for ${userID}`)
+        logger.info(inputs)
+        const deletion = await this.documentClient.delete(inputs).promise()
+        return {"message": `Simulating deleting ${feywildID} from user ${userID}`,deletion}
     }
 }
