@@ -5,7 +5,7 @@ import { HarptosCalendar, HarptosUpdate } from "../models/harptos"
 import { FeywildCalendar, FeywildUpdate } from "../models/feywild"
 import { StandardHarptos } from "../gameObjects/standardHarptos"
 import { createLogger } from "../utils/logger"
-import { update } from 'lodash'
+
 
 const logger = createLogger('Database Layer')
 
