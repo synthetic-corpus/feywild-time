@@ -5,7 +5,8 @@ export interface FeywildCalendar {
     userID: string,
     dilation: Dilation,
     currentSegment: number,
-    feySegments: FeywildSegment[]
+    feySegments: FeywildSegment[],
+    feyImage?: string // name of the image
 }
 
 export interface FeywildSegment {
