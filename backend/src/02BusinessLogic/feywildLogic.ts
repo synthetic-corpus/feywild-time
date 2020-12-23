@@ -1,13 +1,15 @@
 import * as uuid from 'uuid'
 
-import { FeywildCalendar, FeywildUpdate } from '../models/Feywild'
+import { FeywildCalendar, FeywildUpdate, FeyImageUpdate } from '../models/Feywild'
 import { FeywildSetup } from '../requests/createFeywild'
 import { createLogger } from '../utils/logger'
 
 const logger = createLogger('Logic Layer')
 /* Database Layer */
 import { FeywildDB } from '../03dataLayer/databaseAccess'
+import { S3Access } from '../03dataLayer/s3Access'
 const feywildDB = new FeywildDB()
+const s3Access = new S3Access()
 
 export async function createFeywild(
     feywildSetup: FeywildSetup, 
@@ -46,3 +48,17 @@ export async function deleteFeywild(
     ): Promise<Object>{
     return await feywildDB.deleteFeywild(feywildID, userID)
 }
+
+export async function addFeywildImage(
+    feywildImage: string,
+    feywildID: string,
+    userID: string
+    ): Promise<FeyImageUpdate>{
+        const feyImageFull = feywildID + feywildImage // Ensures uniqueness of name within S3 Bucket.
+        const updateObject: boolean = await feywildDB.updateImage(feyImageFull, feywildID, userID)
+        const uploadURL = await s3Access.getUploadURL(feyImageFull)
+        return {
+            uploadURL,
+            success: updateObject
+        }
+    }

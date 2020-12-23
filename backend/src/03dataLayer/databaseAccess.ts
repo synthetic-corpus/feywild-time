@@ -5,6 +5,7 @@ import { HarptosCalendar, HarptosUpdate } from "../models/harptos"
 import { FeywildCalendar, FeywildUpdate } from "../models/feywild"
 import { StandardHarptos } from "../gameObjects/standardHarptos"
 import { createLogger } from "../utils/logger"
+import { update } from 'lodash'
 
 const logger = createLogger('Database Layer')
 
@@ -169,6 +170,37 @@ export class FeywildDB {
         logger.info(inputs)
         const updatedThing = await this.documentClient.update(inputs).promise()
         return updatedThing as Object
+    }
+
+    async updateImage(feyImageFull: string, feywildID: string, userID: string): Promise<boolean>{
+        
+        const inputs = {
+            TableName: this.table,
+            Key: {
+                userID,
+                feywildID
+            },
+            
+            UpdateExpression: `set #feyImage = :i`, // Update 'instructions' similiar to writing a raw SQL request
+            // Provide the variables for the instructions above.
+            ExpressionAttributeValues: {
+                ':i': feyImageFull
+            },
+            ExpressionAttributeNames: {
+                '#feyImage': 'feyImage'
+            }
+        }
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Adding/Update immage link ${this.table} for ${userID}`)
+        logger.info(inputs)
+        try{
+            const update = await this.documentClient.update(inputs).promise()
+            logger.info(update)
+            return true
+        }catch(e){
+            logger.error(e)
+            return false
+        }
     }
 
     async deleteFeywild(feywildID: string, userID: string): Promise<Object>{
