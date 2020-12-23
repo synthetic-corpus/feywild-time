@@ -123,6 +123,7 @@ functions:
           cors: true
           path: harptos/{harptosID}
           authorizer: Auth
+
   # Feywild CRUD
   CreateFeywild:
     handler: src/01Lambda/httpFeywild/createFeywild.handler
@@ -155,6 +156,14 @@ functions:
           method: delete
           cors: true
           path: feywild/{feywildID}
+          authorizer: Auth
+  GetUploadURL:
+    handler: src/01Lambda/httpS3/getUploadURL.handler
+    events:
+      - http:
+          method: post
+          cors: true
+          path: feywild/images/{feywildID}
           authorizer: Auth
 
 resources:
