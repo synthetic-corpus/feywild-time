@@ -44,27 +44,6 @@ provider:
         - codedeploy:*
       Resource:
         - '*'
-    - Effect: Allow
-      Action:
-        - dynamodb:Scan
-        - dynamodb:PutItem
-        - dynamodb:GetItem
-        - dynamodb:Query
-        - dynamodb:Delete
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.HARPTOS_TABLE}
-    - Effect: Allow
-      Action:
-        - dynamodb:Scan
-        - dynamodb:PutItem
-        - dynamodb:GetItem
-        - dynamodb:Query
-        - dynamodb:Delete
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}/index/${self:provider.environment.FEYWILD_INDEX}'
 
 custom:
   dynamodb:
@@ -104,6 +83,11 @@ functions:
           cors: true
           path: harptos/
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.HARPTOS_TABLE}'
   RetrieveHarptos:
     handler: src/01Lambda/httpHarptos/retrieveHarptos.handler
     events:
@@ -112,6 +96,11 @@ functions:
           cors: true
           path: harptos/{harptosID}
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.HARPTOS_TABLE}'
   UpdateHarptos:
     handler: src/01Lambda/httpHarptos/updateHarptos.handler
     events:
@@ -120,6 +109,11 @@ functions:
           cors: true
           path: harptos/{harptosID}
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.HARPTOS_TABLE}'
   DeleteHarptos:
     handler: src/01Lambda/httpHarptos/deleteHarptos.handler
     events:
@@ -128,6 +122,11 @@ functions:
           cors: true
           path: harptos/{harptosID}
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.HARPTOS_TABLE}' 
 
   # Feywild CRUD
   CreateFeywild:
@@ -136,8 +135,13 @@ functions:
       - http:
           method: post
           cors: true
-          path: feywild/
+          path: feywild
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}'
   RetrieveFeywild:
     handler: src/01Lambda/httpFeywild/getFeywild.handler
     events:
@@ -146,6 +150,11 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}'
   RetrieveAllFeywilds:
     handler: src/01Lambda/httpFeywild/getAllFeywilds.handler
     events:
@@ -154,6 +163,11 @@ functions:
           cors: true
           path: feywild
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}/index/${self:provider.environment.FEYWILD_INDEX}'
   UpdateFeywild:
     handler: src/01Lambda/httpFeywild/updateFeywild.handler
     events:
@@ -162,6 +176,11 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}'
   DeleteFeywild:
     handler: src/01Lambda/httpFeywild/deleteFeywild.handler
     events:
@@ -170,6 +189,11 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}'
   GetUploadURL:
     handler: src/01Lambda/httpS3/getUploadURL.handler
     events:
@@ -178,6 +202,11 @@ functions:
           cors: true
           path: feywild/images/{feywildID}
           authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}'
 
 resources:
   Resources:
