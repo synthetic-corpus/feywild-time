@@ -32,7 +32,12 @@ export async function retrieveFeywild(
     feywildID: string, 
     userID: string
     ): Promise<FeywildCalendar>{
-    return await feywildDB.retrieveFeywild(feywildID, userID)
+    const result =  await feywildDB.retrieveFeywild(feywildID, userID)
+    if(result.feyImage){
+        return await s3Access.addSignedURL(result)
+    }else{
+        return result
+    }
 }
 
 export async function updateFeywild(

@@ -1,4 +1,5 @@
 import * as AWS  from 'aws-sdk'
+import { FeywildCalendar } from '../models/Feywild'
 import { SignedURLRequest } from '../requests/SignedURLRequest'
 import { createLogger } from '../utils/logger'
 const logger = createLogger('s3 Access')
@@ -42,5 +43,14 @@ export class S3Access {
             logger.error(`s3 Upload URL Failed. With error ${e}`)
             return undefined // Will cause an error. That's the idea.
         }
+    }
+
+    async addSignedURL(feywildCalendar: FeywildCalendar): Promise<FeywildCalendar> {
+        logger.info(`Added Singed URL for to ${feywildCalendar.feywildID}`)
+        const imageID = feywildCalendar.feyImage
+        const downloadURL = await this.getGetSignedURL(imageID)
+        logger.info(`URL Generated! ${downloadURL}`)
+        feywildCalendar.feyImage = downloadURL
+        return feywildCalendar
     }
 }  
