@@ -1,0 +1,389 @@
+{
+	"info": {
+		"_postman_id": "7af520cd-667c-4b15-b919-c6154f41da3c",
+		"name": "Feywild API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Feywild CRUD",
+			"item": [
+				{
+					"name": "Get Feywild",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{api}}dev/feywild/:feywildID",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"feywild",
+								":feywildID"
+							],
+							"variable": [
+								{
+									"key": "feywildID",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Feywild",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{api}}dev/feywild/",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"feywild",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Feywild",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{api}}dev/feywild/:feywildID",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"feywild",
+								":feywildID"
+							],
+							"variable": [
+								{
+									"key": "feywildID",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Feywild",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"feywildName\": \"Snow Goon Lands\",\n    \"dilation\": {\n        \"sides\": 6,\n        \"rolls\": 2,\n        \"add\": 0\n    },\n    \"currentSegment\": 0,\n    \"feySegments\": [\n        {\n            \"astronomics\": \"Sunrise\",\n            \"weather\": \"Winter\",\n            \"notes\": \"Villagers cast wards on their homes.\"\n        },\n        {\n            \"astronomics\": \"Noon\",\n            \"weather\": \"Winter\",\n            \"notes\": \"Snow Goons Awaken with the High winter Sun.\"\n        },\n        {\n            \"astronomics\": \"Night Time\",\n            \"weather\": \"Cool night\",\n            \"notes\": \"The Snow Goons Attack!\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}dev/feywild/",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"feywild",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Upload URL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"feywildImage\": \"snowgoons.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}dev/feywild/images/:feywildID",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"feywild",
+								"images",
+								":feywildID"
+							],
+							"variable": [
+								{
+									"key": "feywildID",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Feywild",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"feywildName\": \"Snow Goon Lands with Update!\",\n    \"dilation\": {\n        \"sides\": 6,\n        \"rolls\": 2,\n        \"add\": 0\n    },\n    \"currentSegment\": 1,\n    \"feySegments\": [\n        {\n            \"astronomics\": \"Sunrise\",\n            \"weather\": \"Winter\",\n            \"notes\": \"Villagers cast wards on their homes.\"\n        },\n        {\n            \"astronomics\": \"Noon\",\n            \"weather\": \"Winter\",\n            \"notes\": \"Snow Goons Awaken with the High winter Sun.\"\n        },\n        {\n            \"astronomics\": \"Night Time\",\n            \"weather\": \"Cool night\",\n            \"notes\": \"The Snow Goons Freeze!\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}dev/feywild/:feywildID",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"feywild",
+								":feywildID"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feywildID",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Harptos CRUD",
+			"item": [
+				{
+					"name": "Get Harptos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{api}}dev/harptos/:harptosID",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"harptos",
+								":harptosID"
+							],
+							"variable": [
+								{
+									"key": "harptosID",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Harptos",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{api}}dev/harptos/:harptosID",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"harptos",
+								":harptosID"
+							],
+							"variable": [
+								{
+									"key": "harptosID",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Harptos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"day\": 14,\n    \"year\": 1601\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}dev/harptos/",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"harptos",
+								""
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Harptos",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"days\": [\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 1,\n            \"season\": \"Winter\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 2,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 3,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 4,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 5,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 6,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 7,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 8,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 9,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 10,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 11,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 12,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 13,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 14,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 15,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 16,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 17,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 18,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 19,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 20,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 21,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 22,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 23,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 24,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 25,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 26,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 27,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 28,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 29,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Hammer\",\n            \"dayNumber\": 30,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 1,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 2,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 3,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 4,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 5,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 6,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 7,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 8,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 9,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 10,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 11,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 12,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 13,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 14,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 15,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 16,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 17,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 18,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 19,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 20,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 21,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 22,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 23,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 24,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 25,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 26,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 27,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 28,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 29,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Alturiak\",\n            \"dayNumber\": 30,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 1,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 2,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 3,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 4,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 5,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 6,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 7,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 8,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 9,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 10,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 11,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 12,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 13,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 14,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 15,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 16,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 17,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 18,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 19,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 20,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 21,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 22,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 23,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 24,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 25,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 26,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 27,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 28,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 29,\n            \"season\": \"unset\"\n        },\n        {\n            \"month\": \"Ches\",\n            \"dayNumber\": 30,\n            \"season\": \"Spring\"\n        }\n    ],\n    \"currentDay\": 78,\n    \"harptosYear\": 1655\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}dev/harptos/:haprtosID",
+							"host": [
+								"{{api}}dev"
+							],
+							"path": [
+								"harptos",
+								":haprtosID"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "haprtosID",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get Test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api}}dev/test",
+					"host": [
+						"{{api}}dev"
+					],
+					"path": [
+						"test"
+					]
+				},
+				"description": "To Make sure the API is even running"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
