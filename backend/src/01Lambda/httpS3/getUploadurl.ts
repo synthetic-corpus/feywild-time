@@ -17,7 +17,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const feywildID: string = JSON.parse(event.pathParameters.feywildID)
   const body = JSON.parse(event.body)
   const feywildImageUpdate = await addFeywildImage(body.feywildImage, feywildID, userID)
-  const imageFullname: string = feywildID + body.feywildImage // Used for uniquness with s3 Bucket.
+  const imageFullname: string = feywildID + "-" +body.feywildImage // Used for uniquness with s3 Bucket.
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   

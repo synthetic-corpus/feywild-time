@@ -54,7 +54,7 @@ export async function addFeywildImage(
     feywildID: string,
     userID: string
     ): Promise<FeyImageUpdate>{
-        const feyImageFull = feywildID + feywildImage // Ensures uniqueness of name within S3 Bucket.
+        const feyImageFull = feywildID + "-" +feywildImage // Ensures uniqueness of name within S3 Bucket.
         const updateObject: boolean = await feywildDB.updateImage(feyImageFull, feywildID, userID)
         const uploadURL = await s3Access.getUploadURL(feyImageFull)
         return {
