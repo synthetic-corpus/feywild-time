@@ -14,7 +14,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   
   /* Implment Authorization here when ready */
   const userID = getUserId(event)
-  const harptosID: string = JSON.parse(event.pathParameters.harptosID)
+  const harptosID: string = event.pathParameters.harptosID
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   const reply = await deleteHarptos(harptosID, userID)
