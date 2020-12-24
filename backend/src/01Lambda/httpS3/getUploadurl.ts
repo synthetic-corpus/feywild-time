@@ -17,6 +17,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const feywildID: string = JSON.parse(event.pathParameters.feywildID)
   const body = JSON.parse(event.body)
   const feywildImageUpdate = await addFeywildImage(body.feywildImage, feywildID, userID)
+  const imageFullname: string = feywildID + body.feywildImage // Used for uniquness with s3 Bucket.
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   
@@ -40,7 +41,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       'Access-Control-Allow-Credentials': true
     },
     body: JSON.stringify({
-      item: feywildImageUpdate.uploadURL
+      item: {
+        signedURL: feywildImageUpdate.uploadURL,
+        fullname: imageFullname,
+        message: "Please renname the image file to the 'fullname' before using the upload URL"
+      }
     })
   }
 }
