@@ -59,16 +59,16 @@ Each Calendar Represents a specific place with in the Fey Wild. Dungeon Master m
 }
 ```
 A Dilation is an object that represents dice rolls. These are used to calculate how days pass in the normal world if time is spent here. For instance a dilation of:
-```json
+```typescript
 {
     sides: 4,
     rolls: 2,
     add: -1
 }
 ```
-Means "Roll a 4 sided dice twice. Add the results and subtract 1."
+Means *"Roll a 4 sided dice twice. Add the results and subtract 1."*
 
-Fey Segments represent 24 hour periods in the Fey. They record the sun/moon position, the weather, and notes private to the DM.
+FeySegments represent 24 hour periods in the Fey. They record the sun/moon position, the weather, and notes private to the DM.
 
 When combined, it allows the DM to create strange places. The example below represent a place in the Feywild that is in a perptual fall party. If players spend time here, they may lose up to four days in the real world.
 
@@ -123,6 +123,8 @@ When combined, it allows the DM to create strange places. The example below repr
 
 ## Postman set up
 
+
+
 Postman set up requires two environment Variables. The first is the API url which should be:
 ``` https://2acnfm1f3b.execute-api.us-west-2.amazonaws.com/ ```
 *...including* the trailing slash.
@@ -136,15 +138,15 @@ Run ```npm install``` followed by ```npm start``` to load the Angular front end 
 
 Use this token for all tests via postman.
 
-## Get Tests
+## Where are the Tests?
 
-Run the tests in the file provided at the submission of this project.
+A postman tests file can be found under "Postman Collection."
 
 # Run Tests
 
 ## Harptos Calendar CRUD tests
 
-The Harptos Calendar requires little interaction from the user. Simply create a calendar. The Harptos Calendar will be returned to you, including its HarptosID, which is the PK for get, delete, and update requests.
+The Harptos Calendar requires little interaction from the user. Simply start with the Post request. A Harptos Calendar will be returned to you, including its HarptosID, which is the PK for get, delete, and update requests.
 
 Relevant update and post objects are already provided, But there are here for reference.
 
@@ -168,6 +170,8 @@ Update:
 ## Feywild Calendar CRUD tests
 
 Sample post and update tests for Feywild are also provided, but tests are encouraged to create additional Feywild zones based on whatevery whimsy they think of.
+
+The Feywild Get all Requests will return everything by userID, and you can use feywildID for patch, get, delete, and signed url requests.
 
 The body for both a post and update requests are the same
 
@@ -206,6 +210,8 @@ The body of the request should be:
 ```
 Whereas the "string" is the name of the image you wish to upload.
 
-**Important** the API does not use the same name for generating the s3 Upload URL. It prepend the FeywildID in front of it in order to generate a unique image name. Consequently, the image must be manually rennamed prior to upload.
+**Important** the API does not use the same name for generating the s3 Upload URL. It prepends the FeywildID in front of it in order to generate a unique image name. Consequently, the image to be uploaded must be manually rennamed prior to using the signed URL
 
 In a completed project, the rennaming of the actual file would be handled in the front end.
+
+Thanks for testing my project!
