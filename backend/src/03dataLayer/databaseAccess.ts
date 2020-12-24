@@ -1,4 +1,5 @@
 import * as AWS  from 'aws-sdk'
+import * as AWSXRay from 'aws-xray-sdk'
 
 
 import { HarptosCalendar, HarptosUpdate } from "../models/harptos"
@@ -8,16 +9,17 @@ import { createLogger } from "../utils/logger"
 
 
 const logger = createLogger('Database Layer')
+const xray = AWSXRay.captureAWS(AWS)
 
 
 export class HarptosDB {
     constructor(
-        private documentClient = new AWS.DynamoDB.DocumentClient(),
+        private documentClient = new xray.DynamoDB.DocumentClient(),
         private table = process.env.HARPTOS_TABLE
     ){
         if (process.env.IS_OFFLINE){
             console.log("Connecting to Offline DB")
-            this.documentClient = new AWS.DynamoDB.DocumentClient({
+            this.documentClient = new xray.DynamoDB.DocumentClient({
                 region: 'localhost',
                 endpoint: 'http://localhost:8000'
             })
@@ -105,13 +107,13 @@ export class HarptosDB {
 
 export class FeywildDB {
     constructor(
-        private documentClient = new AWS.DynamoDB.DocumentClient(),
+        private documentClient = new xray.DynamoDB.DocumentClient(),
         private table = process.env.FEYWILD_TABLE,
         private index = process.env.FEYWILD_INDEX
     ) {
         if (process.env.IS_OFFLINE){
             console.log("Connecting to Offline DB")
-            this.documentClient = new AWS.DynamoDB.DocumentClient({
+            this.documentClient = new xray.DynamoDB.DocumentClient({
                 region: 'localhost',
                 endpoint: 'http://localhost:8000'
             })

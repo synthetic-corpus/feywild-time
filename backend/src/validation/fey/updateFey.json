@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": ["currentSegment", "dilation","feySegments","feywildName"],
+    "definitions": {
+        "Dilation": {
+            "properties": {
+                "add": {
+                    "type": "number"
+                },
+                "rolls": {
+                    "type": "number"
+                },
+                "sides": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "FeywildSegment": {
+            "properties": {
+                "astronomics": {
+                    "type": "string"
+                },
+                "notes": {
+                    "type": "string"
+                },
+                "weather": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "currentSegment": {
+            "type": "number"
+        },
+        "dilation": {
+            "$ref": "#/definitions/Dilation"
+        },
+        "feySegments": {
+            "items": {
+                "$ref": "#/definitions/FeywildSegment"
+            },
+            "type": "array"
+        },
+        "feywildName": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

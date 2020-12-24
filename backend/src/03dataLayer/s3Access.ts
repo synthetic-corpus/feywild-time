@@ -1,14 +1,17 @@
 import * as AWS  from 'aws-sdk'
+import * as AWSXRay from 'aws-xray-sdk'
 import { FeywildCalendar } from '../models/Feywild'
 import { SignedURLRequest } from '../requests/SignedURLRequest'
 import { createLogger } from '../utils/logger'
+
+const xray = AWSXRay.captureAWS(AWS)
 const logger = createLogger('s3 Access')
 
 export class S3Access {
     constructor(
         private bucket = process.env.PHOTO_BUCKET,
         private expiration = process.env.BUCKET_EXPIRATION,
-        private s3 = new AWS.S3({signatureVersion: 'v4'})
+        private s3 = new xray.S3({signatureVersion: 'v4'})
     ){}
     async getUploadURL(feywildImage: string):Promise<string>{
         const request: SignedURLRequest = {

@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": ["day","year"],
+    "properties": {
+        "day": {
+            "type": "number"
+        },
+        "year": {
+            "type": "number"
+        }
+    },
+    "type": "object"
+}

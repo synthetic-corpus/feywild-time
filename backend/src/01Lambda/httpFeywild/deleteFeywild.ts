@@ -19,6 +19,18 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   logger.info(`Processing event ${JSON.stringify(event)}`)
   const reply = await deleteFeywild(feywildID, userID)
 
+  if (reply.hasOwnProperty('error')) {
+    return {
+      statusCode: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      },
+      body: JSON.stringify({
+        ...reply
+      })
+    };
+  }
   if(reply){
       return {
         statusCode: 200,

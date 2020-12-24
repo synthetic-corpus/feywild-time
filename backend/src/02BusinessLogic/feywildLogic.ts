@@ -14,7 +14,7 @@ const s3Access = new S3Access()
 export async function createFeywild(
     feywildSetup: FeywildSetup, 
     userID: string
-    ): Promise<FeywildCalendar>{
+    ): Promise<object>{
     const feywildID = uuid.v4()
     const createdAt = (new Date()).toString();
     logger.info("*** Logic Layer ***")
@@ -25,26 +25,37 @@ export async function createFeywild(
         createdAt,
         ...feywildSetup
     }
-    return await feywildDB.createFeywild(feyZone)
+    try{
+        return await feywildDB.createFeywild(feyZone)
+    }catch{
+        return {"error": `Could not create with new Calendar`,"Input": feyZone}
+    }
+    
 }
 
 export async function retrieveFeywild(
     feywildID: string, 
     userID: string
-    ): Promise<FeywildCalendar>{
-    const result =  await feywildDB.retrieveFeywild(feywildID, userID)
-    if(result.hasOwnProperty('feyImage')){
-        return await s3Access.addSignedURL(result)
-    }else{
-        return result
+    ): Promise<object>{
+    try{
+        const result =  await feywildDB.retrieveFeywild(feywildID, userID)
+        if(result.hasOwnProperty('feyImage')){
+            return await s3Access.addSignedURL(result)
+        }else{
+            return result
+        }
+    }catch{
+        return {"error": `Could not retrieve!`,feywildID,userID}
     }
+    
 }
 
 export async function retrieveAllFeywilds(
     userID: string
-    ): Promise<FeywildCalendar[]>{
-    const results = await feywildDB.retrieveAllFeywilds(userID)
-    const mapped: Promise<FeywildCalendar[]> = Promise.all(results.map(async (element)=>{
+    ): Promise<object[]>{
+    try{
+        const results = await feywildDB.retrieveAllFeywilds(userID)
+        const mapped: Promise<FeywildCalendar[]> = Promise.all(results.map(async (element)=>{
         if(element.feyImage){
             element = await s3Access.addSignedURL(element as FeywildCalendar)
             return element
@@ -53,19 +64,33 @@ export async function retrieveAllFeywilds(
         }
     })) as Promise<FeywildCalendar[]>
     return mapped
+    }catch{
+        return [{"error": `Could not retrieve!`,userID}]
+    }
+    
 }
 export async function updateFeywild(
     feywildUpdate: FeywildUpdate, 
     feywildID: string, 
-    userID: string): Promise<Object>{
-    return await feywildDB.updateFeywild(feywildUpdate, feywildID, userID)
+    userID: string): Promise<object>{
+    try{
+        return await feywildDB.updateFeywild(feywildUpdate, feywildID, userID)
+    }catch{
+        return {"error":"Could Not update!",feywildUpdate,feywildID,userID}
+    }
+    
 }
 
 export async function deleteFeywild(
     feywildID: string, 
     userID: string
-    ): Promise<Object>{
-    return await feywildDB.deleteFeywild(feywildID, userID)
+    ): Promise<object>{
+    try{
+        return await feywildDB.deleteFeywild(feywildID, userID)
+    }catch {
+        return {"error":"Could Not Delete!",feywildID,userID}
+    }
+    
 }
 
 export async function addFeywildImage(

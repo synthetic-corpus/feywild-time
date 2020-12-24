@@ -18,7 +18,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const retrievedItems = await retrieveAllFeywilds(userID)
   
   
-  if (!retrievedItems) {
+  if (retrievedItems[0].hasOwnProperty("error")) {
     return {
       statusCode: 400,
       headers: {
@@ -26,7 +26,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
         'Access-Control-Allow-Credentials': true
       },
       body: JSON.stringify({
-        error: 'Calender was not retrieved.'
+        ...retrievedItems[0]
       })
     };
   }

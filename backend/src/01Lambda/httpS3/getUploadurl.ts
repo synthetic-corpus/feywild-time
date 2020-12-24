@@ -5,7 +5,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { getUserId } from '../utils'
 import { createLogger } from '../../utils/logger'
 
-// Business Logic Layer
+
 import { addFeywildImage } from '../../02BusinessLogic/feywildLogic'
 
 const logger = createLogger("** Http Layer **")

@@ -83,6 +83,9 @@ functions:
           cors: true
           path: harptos/
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/harptos/createHarptos.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -109,6 +112,9 @@ functions:
           cors: true
           path: harptos/{harptosID}
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/harptos/updateHarptos.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -137,6 +143,9 @@ functions:
           cors: true
           path: feywild
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/fey/createFey.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -176,6 +185,9 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/fey/updateFey.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -202,7 +214,15 @@ functions:
           cors: true
           path: feywild/images/{feywildID}
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/fey/imageFey.json)}
     iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:PutObject
+          - s3:GetObject
+        Resource: 'arn:aws:s3:::${self:provider.environment.PHOTO_BUCKET}/*'
       - Effect: Allow
         Action:
           - dynamodb:UpdateItem
@@ -250,7 +270,6 @@ resources:
               Effect: Allow
               Principal: '*'
               Action: 
-                - 's3:GetObject'
                 - 's3:PutObject'
               Resource: 'arn:aws:s3:::${self:provider.environment.PHOTO_BUCKET}/*'
         Bucket: !Ref FeyImages

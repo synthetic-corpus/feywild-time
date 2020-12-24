@@ -20,7 +20,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   
-  if (!newItem.feywildID) {
+  if (newItem.hasOwnProperty('error')) {
     return {
       statusCode: 400,
       headers: {
@@ -28,7 +28,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
         'Access-Control-Allow-Credentials': true
       },
       body: JSON.stringify({
-        error: 'Calender was not created.'
+        ...newItem
       })
     };
   }
