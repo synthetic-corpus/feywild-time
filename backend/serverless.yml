@@ -145,7 +145,7 @@ functions:
           authorizer: Auth
           request:
             schema:
-              application/json: ${file(src/validation/feywild/createFey.json)}
+              application/json: ${file(src/validation/fey/createFey.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -187,7 +187,7 @@ functions:
           authorizer: Auth
           request:
             schema:
-              application/json: ${file(src/validation/feywild/updateFey.json)}
+              application/json: ${file(src/validation/fey/updateFey.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -216,7 +216,7 @@ functions:
           authorizer: Auth
           request:
             schema:
-              application/json: ${file(src/validation/feywild/imageFey.json)}
+              application/json: ${file(src/validation/fey/imageFey.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:

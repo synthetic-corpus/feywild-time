@@ -1,5 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": ["feywildImage"],
     "properties": {
         "feywildImage": {
             "type": "string"

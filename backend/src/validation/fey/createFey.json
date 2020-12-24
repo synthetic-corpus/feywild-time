@@ -30,6 +30,7 @@
             "type": "object"
         }
     },
+    "required": ["currentSegment", "dilation","feySegments","feywildName"],
     "properties": {
         "currentSegment": {
             "type": "number"

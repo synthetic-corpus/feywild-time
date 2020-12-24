@@ -1,5 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": ["currentDay", "days","harptosYear"],
     "definitions": {
         "HarptosDay": {
             "properties": {
