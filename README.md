@@ -1,6 +1,6 @@
 # feywild-time
 
-I like to play Dungeons and Dragons. This creates the need to keep track of in game time on a fictional world calendar known as "the Calendar of Harptos." As additionall challenge for Dungeons Master's must also keep track of time in a magical, narnia, like place called "the Feywild." A 24 hour period may not have normal day/night cyclces. It could be a perptual sunny afternoon, a slow cycle between twilight or midnight, or forever cool fall sunset. If players spend time in one of these magical places in the feywild, they may return to the normal world, and find that several days have passed on the Harptos Calendar.
+I like to play Dungeons and Dragons. This creates the need to keep track of in game time on a fictional world calendar known as "the Calendar of Harptos." As additional challenge for Dungeons Masters must also keep track of time in a magical, narnia-like place called "the Feywild." A 24 hour period in the Fey may not have normal day/night cyclces. Visitors could find themselves in a perptual sunny afternoon, a slow cycle between twilight and midnight, or forever cool fall sunset. If players spend time in one of these magical places, they may return to the normal world, and find that several days have passed on the Harptos Calendar.
 
 For more information about Dungeons and Dragons please visit:
 https://dndbeyond.com
@@ -8,9 +8,9 @@ https://forgottenrealms.fandom.com/wiki/Main_Page
 https://www.youtube.com/watch?v=OoW2CDgztKY
 
 ## API and Scope
-This project contains two CRUD APIs that work in parrallel. The first is to keep track of the Calendar of Harptos, the second is to keep track of the various locations in the Feywild, each one will have its own "Calendar.". Eventually this project will have a front end, which will advanced time across all calendar with one click. It will also calculate how many additional days will pass on the Harptos Calendar, depending on where players are in the Feywild.
+This project contains two CRUD APIs that work in parrallel. The first is to keep track of the Calendar of Harptos, the second is to keep track of the various locations in the Feywild, each one will have its own "Calendar." Eventually this project will have a front end, which will advanced time across all calendars with one click. It will also calculate how many additional days will pass on the Harptos Calendar, depending on where players are in the Feywild.
 
-What this project does not have is a completed front end. The current front end exists primarily to allow testers to log on, get a JSON token, and use it for testing of the API via postman.
+What this project does *not* have is a completed front end. The current front end exists primarily to allow testers to log on, get a JSON token, and use it for testing of the API via postman.
 
 Testers will also be able to check the optional ability to upload photos to FeyWild Calendars.
 
@@ -45,7 +45,7 @@ Dungeon masters will typically only have one Harptos Calendar.
 
 ## Feywild Calendar
 
-Each Calendar Represents a specific place with in the Fey Wild. Dungeon Master may have as many as needed, and each one requires input. A FeywildCalendar looks like this:
+Each Calendar Represents a specific place with in the Fey Wild. Dungeon Masters may have as many as needed, and each one requires completed input. A FeywildCalendar looks like this:
 ```typescript
 {
     createdAt: string,
@@ -70,6 +70,13 @@ Means *"Roll a 4 sided dice twice. Add the results and subtract 1."*
 
 FeySegments represent 24 hour periods in the Fey. They record the sun/moon position, the weather, and notes private to the DM.
 
+```typescript
+interface FeywildSegment {
+    astronomics: string /* represents position of sun/moon or day/night */
+    weather: string /* what season is the fey wild apparently in*/
+    notes: string
+}
+```
 When combined, it allows the DM to create strange places. The example below represent a place in the Feywild that is in a perptual fall party. If players spend time here, they may lose up to four days in the real world.
 
 ```typescript
@@ -112,7 +119,7 @@ When combined, it allows the DM to create strange places. The example below repr
         },
         {
             astronmics: "Sun at noon",
-            weather: "Fall Afternoon",
+            weather: "Fall Day",
             notes: "Bonfires mysteriously rebuild themselves..."
         },
     ]
@@ -122,7 +129,6 @@ When combined, it allows the DM to create strange places. The example below repr
 # How to Test
 
 ## Postman set up
-
 
 
 Postman set up requires two environment Variables. The first is the API url which should be:
@@ -169,7 +175,7 @@ Update:
 
 ## Feywild Calendar CRUD tests
 
-Sample post and update tests for Feywild are also provided, but tests are encouraged to create additional Feywild zones based on whatevery whimsy they think of.
+Sample post and update tests for Feywild are also provided, but tests are encouraged to create additional Feywild zones based on whatever whimsy they think of.
 
 The Feywild Get all Requests will return everything by userID, and you can use feywildID for patch, get, delete, and signed url requests.
 
@@ -210,7 +216,7 @@ The body of the request should be:
 ```
 Whereas the "string" is the name of the image you wish to upload.
 
-**Important** the API does not use the same name for generating the s3 Upload URL. It prepends the FeywildID in front of it in order to generate a unique image name. Consequently, the image to be uploaded must be manually rennamed prior to using the signed URL
+**Important** the API does *not* use the same name for generating the s3 Upload URL. It prepends the FeywildID in front of it in order to generate a unique image name. Consequently, the image to be uploaded must be manually rennamed prior to using the signed URL
 
 In a completed project, the rennaming of the actual file would be handled in the front end.
 
