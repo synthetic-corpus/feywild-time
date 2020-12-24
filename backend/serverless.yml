@@ -25,6 +25,8 @@ provider:
   environment:
     EXAMPLE_VARIABLE: sans-server-todo-jtg72006-${self:provider.stage}
     AWS_XRAY_CONTEXT_MISSING: LOG_ERROR
+    PHOTO_BUCKET: sans-server-feywild-${self:provider.stage}
+    BUCKET_EXPIRATION: 600
     HARPTOS_TABLE: HarptosDB-${self:provider.stage}
     FEYWILD_TABLE: FeywildDB-${self:provider.stage}
     HARPTOS_INDEX: HarptosIndex
@@ -58,6 +60,11 @@ provider:
         - dynamodb:Query
         - dynamodb:Delete
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}/index/${self:provider.environment.FEYWILD_INDEX}'
 
 custom:
   dynamodb:
@@ -121,6 +128,7 @@ functions:
           cors: true
           path: harptos/{harptosID}
           authorizer: Auth
+
   # Feywild CRUD
   CreateFeywild:
     handler: src/01Lambda/httpFeywild/createFeywild.handler
@@ -138,6 +146,14 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+  RetrieveAllFeywilds:
+    handler: src/01Lambda/httpFeywild/getAllFeywilds.handler
+    events:
+      - http:
+          method: get
+          cors: true
+          path: feywild
+          authorizer: Auth
   UpdateFeywild:
     handler: src/01Lambda/httpFeywild/updateFeywild.handler
     events:
@@ -154,6 +170,14 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+  GetUploadURL:
+    handler: src/01Lambda/httpS3/getUploadURL.handler
+    events:
+      - http:
+          method: post
+          cors: true
+          path: feywild/images/{feywildID}
+          authorizer: Auth
 
 resources:
   Resources:
@@ -168,7 +192,39 @@ resources:
         ResponseType: DEFAULT_4XX
         RestApiId:
           Ref: ApiGatewayRestApi
-
+    FeyImages:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.PHOTO_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+    BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        PolicyDocument:
+          Id: Photobucket-Policy-1
+          Version: "2012-10-17"
+          Statement:
+            - Sid: PublicReadWriteBucketPolicy
+              Effect: Allow
+              Principal: '*'
+              Action: 
+                - 's3:GetObject'
+                - 's3:PutObject'
+              Resource: 'arn:aws:s3:::${self:provider.environment.PHOTO_BUCKET}/*'
+        Bucket: !Ref FeyImages
     # Harptos Database
     HaprtosTable:
       Type: AWS::DynamoDB::Table
@@ -202,4 +258,11 @@ resources:
               KeyType: RANGE
           BillingMode: PAY_PER_REQUEST
           TableName: ${self:provider.environment.FEYWILD_TABLE}
+          GlobalSecondaryIndexes:
+            - IndexName: ${self:provider.environment.FEYWILD_INDEX}
+              KeySchema:
+                - AttributeName: userID
+                  KeyType: HASH
+              Projection:
+                ProjectionType: ALL
     

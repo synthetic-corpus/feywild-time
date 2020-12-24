@@ -1,4 +1,4 @@
-import { CustomAuthorizerEvent, CustomAuthorizerResult } from 'aws-lambda'
+import { APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult, } from 'aws-lambda'
 import 'source-map-support/register'
 
 import { verify, decode } from 'jsonwebtoken'
@@ -18,11 +18,10 @@ const logger = createLogger('auth')
 
 
 export const handler = async (
-  event: CustomAuthorizerEvent
-): Promise<CustomAuthorizerResult> => {
+  event: APIGatewayTokenAuthorizerEvent 
+): Promise<APIGatewayAuthorizerResult> => {
   logger.info('Authorizing a user', event.authorizationToken)
   try {
-    
     const jwtToken = await verifyToken(event.authorizationToken)
     logger.info('User was authorized', jwtToken)
     
@@ -65,7 +64,7 @@ Will only implement this when I'm ready to do authentications
 
 async function verifyToken(authHeader: string): Promise<JwtPayload> {
   const token = getToken(authHeader)
-  // Uncertain why the jwt item is here. Comment out for now.
+  logger.info(`Verifying JWT token from ${authHeader}`)
   const jwt: Jwt = decode(token, { complete: true }) as Jwt
   const rawCert = await matchToKey(jwt.header.kid)
   const cert = stringToPEM(rawCert)
@@ -82,6 +81,7 @@ function getToken(authHeader: string): string {
   if (!authHeader.toLowerCase().startsWith('bearer '))
     throw new Error('Invalid authentication header')
   
+  logger.info(`Extracting JWT token from ${authHeader}`)
   const split = authHeader.split(' ')
   
   const token = split[1]
@@ -96,10 +96,10 @@ async function matchToKey(kid: string) {
     const actualKeys = await Axios.get('https://dev-jtg.us.auth0.com/.well-known/jwks.json')
     const signerKey = actualKeys.data.keys.filter(key => {key[kid] === kid})[0] || actualKeys.data.keys[0]
     //logger.info(actualKeys.data.keys)
-    //logger.info(`Singer Key found was ${signerKey}`)
+    logger.info(`Singer Key found was ${signerKey}`)
     const x5cKey: string = signerKey.x5c[0]
     if(!x5cKey){
-      logger.info(`Could Not Match Keys!!`)
+      logger.error(`Could Not Match Keys!!`)
       throw new Error(`Unable to Match any Keys. x5cKey not extracted.`)
     }
 
