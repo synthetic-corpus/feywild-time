@@ -83,6 +83,9 @@ functions:
           cors: true
           path: harptos/
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/harptos/createHarptos.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -109,6 +112,9 @@ functions:
           cors: true
           path: harptos/{harptosID}
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/harptos/updateHarptos.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -137,6 +143,9 @@ functions:
           cors: true
           path: feywild
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/feywild/createFey.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -176,6 +185,9 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/feywild/updateFey.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -202,8 +214,10 @@ functions:
           cors: true
           path: feywild/images/{feywildID}
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(src/validation/feywild/imageFey.json)}
     iamRoleStatements:
-      iamRoleStatements:
       - Effect: Allow
         Action:
           - s3:PutObject
