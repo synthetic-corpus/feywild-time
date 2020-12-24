@@ -141,6 +141,14 @@ functions:
           cors: true
           path: feywild/{feywildID}
           authorizer: Auth
+  RetrieveAllFeywilds:
+    handler: src/01Lambda/httpFeywild/getAllFeywilds.handler
+    events:
+      - http:
+          method: get
+          cors: true
+          path: feywild
+          authorizer: Auth
   UpdateFeywild:
     handler: src/01Lambda/httpFeywild/updateFeywild.handler
     events:

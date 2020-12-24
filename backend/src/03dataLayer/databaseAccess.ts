@@ -145,6 +145,20 @@ export class FeywildDB {
         return result.Item as FeywildCalendar
     }
 
+    async retrieveAllFeywilds(userID: string){
+        const inputs = {
+            TableName: this.table,
+            KeyConditionExpression: 'userId = :userId',
+            ExpressionAttributeValues: {
+              ':userId': userID
+            }
+          }
+        logger.info("*** Database Access Layer ***")
+        logger.info(`Retrieving from table ${this.table} for ${userID}`)
+        const array = await this.documentClient.query(inputs).promise()
+        console.log(array)
+        return array.Items
+    }
     async updateFeywild(feywildUpdate: FeywildUpdate, feywildID: string, userID: string): Promise<Object>{
         const inputs = {
             TableName: this.table,

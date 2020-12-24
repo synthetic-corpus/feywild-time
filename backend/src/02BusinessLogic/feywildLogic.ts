@@ -40,6 +40,12 @@ export async function retrieveFeywild(
     }
 }
 
+export async function retrieveAllFeywilds(
+    userID: string
+    ): Promise<any[]>{
+    const results = await feywildDB.retrieveAllFeywilds(userID)
+    return results
+}
 export async function updateFeywild(
     feywildUpdate: FeywildUpdate, 
     feywildID: string, 
