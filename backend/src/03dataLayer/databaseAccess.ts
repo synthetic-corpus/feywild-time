@@ -106,7 +106,8 @@ export class HarptosDB {
 export class FeywildDB {
     constructor(
         private documentClient = new AWS.DynamoDB.DocumentClient(),
-        private table = process.env.FEYWILD_TABLE
+        private table = process.env.FEYWILD_TABLE,
+        private index = process.env.FEYWILD_INDEX
     ) {
         if (process.env.IS_OFFLINE){
             console.log("Connecting to Offline DB")
@@ -148,9 +149,10 @@ export class FeywildDB {
     async retrieveAllFeywilds(userID: string){
         const inputs = {
             TableName: this.table,
-            KeyConditionExpression: 'userId = :userId',
+            IndexName: this.index,
+            KeyConditionExpression: 'userID = :userID',
             ExpressionAttributeValues: {
-              ':userId': userID
+              ':userID': userID,
             }
           }
         logger.info("*** Database Access Layer ***")

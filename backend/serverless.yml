@@ -60,6 +60,11 @@ provider:
         - dynamodb:Query
         - dynamodb:Delete
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.FEYWILD_TABLE}/index/${self:provider.environment.FEYWILD_INDEX}'
 
 custom:
   dynamodb:
@@ -253,4 +258,11 @@ resources:
               KeyType: RANGE
           BillingMode: PAY_PER_REQUEST
           TableName: ${self:provider.environment.FEYWILD_TABLE}
+          GlobalSecondaryIndexes:
+            - IndexName: ${self:provider.environment.FEYWILD_INDEX}
+              KeySchema:
+                - AttributeName: userID
+                  KeyType: HASH
+              Projection:
+                ProjectionType: ALL
     
