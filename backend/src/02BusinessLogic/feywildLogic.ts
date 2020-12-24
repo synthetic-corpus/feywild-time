@@ -44,7 +44,15 @@ export async function retrieveAllFeywilds(
     userID: string
     ): Promise<any[]>{
     const results = await feywildDB.retrieveAllFeywilds(userID)
-    return results
+    const mapped = Promise.all(results.map(async (element)=>{
+        if(element.feyImage){
+            element = await s3Access.addSignedURL(element as FeywildCalendar)
+            return element
+        }else{
+            return element
+        }
+    }))
+    return mapped
 }
 export async function updateFeywild(
     feywildUpdate: FeywildUpdate, 
