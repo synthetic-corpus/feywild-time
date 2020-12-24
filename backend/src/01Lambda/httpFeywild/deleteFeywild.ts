@@ -14,7 +14,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   
   /* Implment Authorization here when ready */
   const userID = getUserId(event)
-  const feywildID: string = JSON.parse(event.pathParameters.feywildID)
+  const feywildID: string = event.pathParameters.feywildID
   logger.info(`HTTP Layer`)
   logger.info(`Processing event ${JSON.stringify(event)}`)
   const reply = await deleteFeywild(feywildID, userID)

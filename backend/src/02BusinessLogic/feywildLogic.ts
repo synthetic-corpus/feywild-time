@@ -33,7 +33,7 @@ export async function retrieveFeywild(
     userID: string
     ): Promise<FeywildCalendar>{
     const result =  await feywildDB.retrieveFeywild(feywildID, userID)
-    if(result.feyImage){
+    if(result.hasOwnProperty('feyImage')){
         return await s3Access.addSignedURL(result)
     }else{
         return result
