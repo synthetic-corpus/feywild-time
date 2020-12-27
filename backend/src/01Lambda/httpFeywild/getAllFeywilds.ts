@@ -16,9 +16,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   /* Implment Authorization here when ready */
   const userID = getUserId(event)
   const retrievedItems = await retrieveAllFeywilds(userID)
-  
-  
-  if (retrievedItems[0].hasOwnProperty("error")) {
+  console.log(`My Empty Array is ${retrievedItems})`)
+  if (retrievedItems.length > 0 && retrievedItems[0].hasOwnProperty("error")) {
     return {
       statusCode: 400,
       headers: {
