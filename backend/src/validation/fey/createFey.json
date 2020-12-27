@@ -21,19 +21,19 @@
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 15,
-                    "pattern": "a-zA-Z0-9 !.,;:'\""
+                    "pattern": "[a-zA-Z0-9 !.,;:'\"]"
                 },
                 "notes": {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 50,
-                    "pattern": "a-zA-Z0-9 !.,;:'\""
+                    "pattern": "[a-zA-Z0-9 !.,;:'\"]"
                 },
                 "weather": {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 15,
-                    "pattern": "a-zA-Z0-9 !.,;:'\""
+                    "pattern": "[a-zA-Z0-9 !.,;:'\"]"
                 }
             },
             "type": "object"
@@ -57,7 +57,7 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 15,
-            "pattern": "a-zA-Z0-9 !.,;:'\""
+            "pattern": "[a-zA-Z0-9 !.,;:'\"]"
         }
     },
     "type": "object"
