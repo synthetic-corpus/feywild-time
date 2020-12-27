@@ -144,6 +144,13 @@ Run ```npm install``` followed by ```npm start``` to load the Angular front end 
 
 Use this token for all tests via postman.
 
+## Validation
+
+All input objects have been validated. String entries are additionally validated. They must be at least 3 characters long and match the following REGEX:
+```
+[a-zA-Z0-9 !.,;:'"]
+```
+Feywild Notes can have up to 50 characters. All other strings have a maximum of 15.
 ## Where are the Tests?
 
 A postman tests file can be found under "Postman Collection."
