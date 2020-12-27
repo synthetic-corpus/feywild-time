@@ -19,13 +19,22 @@
         "FeywildSegment": {
             "properties": {
                 "astronomics": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 15,
+                    "pattern": "a-zA-Z0-9 !.,;:'\""
                 },
                 "notes": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 50,
+                    "pattern": "a-zA-Z0-9 !.,;:'\""
                 },
                 "weather": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 15,
+                    "pattern": "a-zA-Z0-9 !.,;:'\""
                 }
             },
             "type": "object"
